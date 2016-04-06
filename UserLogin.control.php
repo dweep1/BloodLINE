@@ -1,8 +1,13 @@
 <?php	
 
-	/* === CLASS FOR UserLogin TABLE === */
+	/* === VIEWS === */
+	include('NurseUI.boundary.php');
+	include('LabTechUI.boundary.php');
 
-	class UserLogin extends Table
+	/* === CLASS FOR UserLogin TABLE === */
+	if ( interface_exists('manageRecord') ) {
+
+	class UserLogin extends Table implements manageRecord
 	{
 		/* === ATTRIBUTES === */
 
@@ -16,19 +21,14 @@
 		/* === METHODS === */
 
 		/**
-		*	Constructor (Create object and add data to database table)
+		*	Constructor 
 		*   
-		*   @param  record
+		*   @param  
 		*	@return none
 		*/
-		 function __construct($rec)
+		 function __construct()
 		{
-			// Create associative array of key fields and data values
-			$data =  array("idUser"=>$rec[0],"userName"=>$rec[1],"userType"=>$rec[2],"passWord"=>$rec[3]);
-			// Bind values to object's attributes
-			$this->bind($data);
-			// Add new values to table in database
-			$this->insert();
+			
 		}
 
 		/**
@@ -75,6 +75,55 @@
 		}
 
 
+		/**
+		*	User Authentication
+		*   
+		*   @param  username,password
+		*	@return none
+		*/
+		function login_User($user,$pass)
+		{
+
+			$dbo = database::getInstance(); // pass back that database object already created perhaps
+			
+			$sql = "SELECT * FROM {$this->table} 
+                    WHERE  userName = '{$user}'";
+
+			$dbo->doQuery($sql); // execute query statement
+
+			$row = $dbo->loadObjectList(); //get list of all returned values as assoc array
+			
+			/* Encrypt password entered */
+			// Get salt appended
+			$salt = substr($row["passWord"], -1);
+			// Cooncatenate to password entered by user
+			$digest = $pass.$salt;
+			// Compute digest of this concatanated string
+			$encPassword = md5($digest);
+			// Compare to what is in database
+			if ($row["passWord"] === $encPassword)
+			{
+				/* Login succesful */
+				// Link to different ui based on user type
+				if ($row["userType"] === 'N')
+				{
+					// Nurse UI
+					$ui = new NurseUI($user);
+				}
+				else if ($row["userType"] === 'L')
+				{
+					// Lab Tech UI
+					$ui = new LabTechUI($user);
+				}
+			}
+			else
+			{
+				return False;
+			}
+
+
+		}
+
   
 		/**
 		*	Executes Select query on Table
@@ -102,7 +151,7 @@
 				// from the database
 			}
 		
-			//return $row;
+			return $row;
 		}
 
 
@@ -166,7 +215,83 @@
 
 		}
 
+		/* ==== INTERFACE FUNCTIONS === */
+
+		/**
+		*	Add records to database table
+		*   
+		*   @param  record
+		*	@return none
+		*/
+		function addNew($rec)
+		{
+			// Create associative array of key fields and data values
+			$data =  array("idUser"=>$rec[0],"userName"=>$rec[1],"userType"=>$rec[2],"passWord"=>$rec[3]);
+			// Bind values to object's attributes
+			$this->bind($data);
+			// Add new values to table in database
+			$this->insert();
+		}
+
+		/**
+		*	Update record in database table
+		*   
+		*   @param  record
+		*	@return none
+		*/
+		function editRecord($rec)
+		{
+			// Create associative array of key fields and data values
+			$data =  array("idUser"=>$rec[0],"userName"=>$rec[1],"userType"=>$rec[2],"passWord"=>$rec[3]);
+			// Bind values to object's attributes
+			$this->bind($data);
+			// Add new updated values to table in database to location of given Primary key
+			$this->update($rec[0]);
+		}
+
+
+		/**
+		*	Search records in database table
+		*   
+		*   @param  primary key
+		*	@return matching records
+		*/
+		function searchRecord($userName)
+		{
+			$this->userName = $userName;
+			$dbo = database::getInstance(); // pass back that database object already created perhaps
+			
+			$sql = "SELECT * FROM {$this->table} 
+                    WHERE '{$this->userName}' = {$this->table}.userName";
+
+			$dbo->doQuery($sql); // execute query statement
+
+			$row = $dbo->loadObjectList(); //get list of all returned values as assoc array
+			
+			return $row;
+		}
+
+		/**
+		*	View records in database table
+		*   
+		*   @param  primary key
+		*	@return none
+		*/
+		function viewRecord($userName)
+		{
+			$this->userName = $userName;
+			$dbo = database::getInstance(); // pass back that database object already created perhaps
+
+			// Execute select query on database giving current object data values
+			$data = $this->select($userName);
+
+			return $data; // list of all returned values as assoc array
+		}
+
+
 
 	} // class
+
+} // interface
 
 ?>
