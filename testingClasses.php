@@ -4,20 +4,20 @@
 	include('dbaccess.php');
 
 	/* === CLASSES === */
-	include('Person.class.php');
-	//include('Recipient.class.php');
-	include('Donor.control.php');
+	//include('Person.class.php');
+	include('Recipient.class.php');
+	//include('Donor.control.php');
 	//include('MedicalRecord.class.php');
 	//include('DonationRecord.class.php');
 	//include('BloodSpecimen.class.php');
-	//include('Recipient_DonationRec_BloodSpec.control.php');
+	include('Recipient_DonationRec_BloodSpec.control.php');
 	//include('UserLogin.control.php');
 	//include('SystemNotification.class.php');
 
 	/*=== DATA FOR TESTING FUNCTIONS ===*/
-	$data = array('123456789', 'fnameupdate', 'lname', 'address1', 'address2', 'cellNo', 'workNo', 'homeNo', 'email', '1995-09-04', 'F', 'idPicture', 'maritalStatus', 'mname', "MR001", "DR001");
+	//$data = array('123456789', 'fnameupdate', 'lname', 'address1', 'address2', 'cellNo', 'workNo', 'homeNo', 'email', '1995-09-04', 'F', 'idPicture', 'maritalStatus', 'mname', "MR001", "DR001");
 	//$data = array('123456789', 'fname', 'lname', 'address1', 'address2', 'cellNo', 'workNo', 'homeNo', 'email', '1995-09-04', 'F', 'idPicture', 'maritalStatus', 'mname');
-	//$data = array('12345678910', 'fname', 'lname', 'address1', 'address2', 'cellNo', 'workNo', 'homeNo', 'email', '1956-12-19', 'F', 'idPicture', 'maritalStatus', 'middlename', 'AB', '2.2', 'reason', '1.0', 'location', '+', 'compatibleWith');
+	$data = array('12348910', 'fname', 'lname', 'address1', 'address2', 'cellNo', 'workNo', 'homeNo', 'email', '1956-12-19', 'F', 'idPicture', 'maritalStatus', 'middlename', 'AB', '2.2', 'reason', '1.0', 'location', '+', 'compatibleWith');
 	//$data = array('12345678910', 'fname', 'lname', 'address1', 'address2', 'cellNo', 'workNo', 'homeNo', 'email', '1956-12-19', 'F', 'idPicture', 'maritalStatus', 'middlename');
 	//$data = array('12345678910', 'AB', '2.2', 'reason', '1', 'location', '+', 'compatibleWith');
 	//$data = array("DR001", "12345678910", "BS001");
@@ -28,27 +28,27 @@
 	//$data = array(2,'userName','L','passWord');
 	//$data = array("123456789","MR001", "DR001");
 
-	$primaryKey = 123456789;
+	//$primaryKey = 123456789;
 
 
 	/* === CREATING OBJECTS === */
-	 $donor = new Donor();
+	 //$donor = new Donor();
 	 //$recipient = new Recipient();
 	 //$person = new Person();
 	 //$mr = new MedicalRecord();
 	 //$dr = new DonationRecord();
 	 //$bs = new BloodSpecimen();
-	 //$rdb = new Recipient_DonationRec_BloodSpec();
-	 //$user = new UserLogin($data);
+	 $rdb = new Recipient_DonationRec_BloodSpec();
+	 //$user = new UserLogin();
 
 	/* === UNIT TESTS == */
 	//$donor->add_MedicalRecord($data);
 	//$donor->add_DonationRecord($data2);
 	//$rdb->add_BloodSpecimen($data);
-	//$rdb->add_Recipient($data);
+	$rdb->add_Recipient($data);
 	//$rdb->construct($data);
 	//$donor->addNew($data);
-	$donor->editRecord($data);
+	//$donor->editRecord($data);
 	//$donor->searchRecord($primaryKey);
 	//$donor->viewRecord($primaryKey);
 

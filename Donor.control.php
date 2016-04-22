@@ -1,8 +1,9 @@
 <?php	
 
 	/* === CLASS FOR Donor TABLE === */
-
-	//if ( interface_exists('manageRecord') ) {
+	include('MedicalRecord.class.php');
+	include('DonationRecord.class.php');
+	include('Person.class.php');
 
 	class Donor extends Person
 	{
@@ -77,11 +78,13 @@
 		*/
     	public function add_MedicalRecord($rec)
 		{
-  			// Create recipient object
-  			$mr = new MedicalRecord($rec);
+  			// Create MedicalRecord object
+  			$mr = new MedicalRecord();
 
-  			// Set control id
-  			$this->donor_medicalRec = $mr->idMedicalRecord;
+  			// Add record to database
+  			$mr->addNew($rec);
+  			// Set control object
+  			$this->donor_medicalRec = $mr;
 
 		}
 
@@ -94,10 +97,13 @@
     	public function add_DonationRecord($rec)
 		{
   			// Create DonationRecord object
-  			$dr = new DonationRecord($rec);
+  			$dr = new DonationRecord();
 
-  			// Set control id
-  			$this->donor_donationRec = $dr->idDonationRecord;
+  			// Add record to database
+  			$dr->addNew($rec);
+
+  			// Set control object
+  			$this->donor_donationRec = $dr;
 
 		}
 
@@ -207,7 +213,8 @@
 		{
 			// Inherit
 			//parent::__construct($rec);
-			$p = new Person($rec);
+			$p = new Person();
+			$p->addNew($rec);
 			// Create associative array of key fields and data values
 			$data =  array("idDonor_TRN"=>$rec[0],"donor_medicalRec"=>$rec[14],"donor_donationRec"=>$rec[15]);
 			// Bind values to object's attributes

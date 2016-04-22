@@ -3,6 +3,7 @@
 	/* === CLASS FOR Recipient TABLE === */
 
 	//if ( interface_exists('manageRecord') ) {
+	include('Person.class.php');
 
 	class Recipient extends Person
 	{
@@ -178,7 +179,8 @@
 		{
 			// Inherit
 			//parent::__construct($rec);
-			$p = new Person($rec);
+			$p = new Person();
+			$p->addNew($rec);
 			// Create associative array of key fields and data values
 			$data = array("idRecipient_TRN"=>$rec[0],"recipient_bloodGroup"=>$rec[14],"recipient_quantityNeeded"=>$rec[15],"recipient_reason"=>$rec[16],"recipient_urgencyLevel"=>$rec[17],"recipient_location"=>$rec[18],"recipient_RH"=>$rec[19],"recipient_compatibleWith"=>$rec[20]);
 			// Bind values to object's attributes

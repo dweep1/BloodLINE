@@ -7,7 +7,7 @@
 		/* === ATTRIBUTES === */
 
 		private $idNotification = null; 
-		private $criticalLevel = null; 
+		private $criticalLevel = 60; 
 		private $timeElapsed = null;
 		private $timeInterval = null;
 
@@ -72,7 +72,11 @@
 		*/
 		function checkTime($timeInterval)
 		{
-			return "<br> ID: ".$this->idNotification;
+			$this->$timeElapsed = time() - $this->$timeElapsed;
+			if ($this->$timeElapsed == $timeInterval)
+			{
+				$this->count_stockBloodType();
+			}
 		}
 
 		/**
@@ -84,13 +88,12 @@
 		function count_stockBloodType()
 		{
 			$dbo = database::getInstance(); // pass back that database object already created perhaps
-			$sql = "select * from BloodStockView"; // what we want to do (select records)
+			$sql = "SELECT COUNT(idBloodSpecimen) as typeCount, bloodSpec_bloodType as type FROM BloodSpecimen GROUP BY bloodSpec_bloodType"; // what we want to do (select records)
 			$dbo->doQuery($sql); // execute query statement
-			$row = $dbo->loadObjectList(); //get list of all returned values as assoc array
+			 while ($row = $dbo->loadObjectList()) //get list of all returned values as assoc array
 			// Array of key value pairs - bloodtype+rhesus --> stock
-			foreach ($row as $key=>$value)
 			{
-				$this->checkStock($value,$key); // check stock of each blood type
+				$this->checkStock($row["typeCount"],$row["type"]); // check stock of each blood type
 			}
 		}
 
@@ -101,12 +104,18 @@
 		*   @param  stock,type,RH
 		*	@return none
 		*/
-		function checkStock($stock,$type,$RH)
+		function checkStock($stock,$type)
 		{
+			
 			if ($stock <= $this->criticalLevel)
 			{
-				$this->notify_lowStock($type,$RH); // notify users
+				return $this->notify_lowStock($type); // notify users
 			}
+			else
+			{
+				return $stock;
+			}
+
 		}
 
 		/**
@@ -115,13 +124,16 @@
 		*   @param  stock,type,RH
 		*	@return none
 		*/
-		function notify_lowStock($stock,$type,$RH)
+		function notify_lowStock($type)
 		{
 			// Create pop up using html,css, javascript 
-			if (mouseclick = "SHARE")
-			{
-				$this->notify_socialMedia($type,$RH);
-			}
+		
+			$code = array("echo"=>"<div class='bubble' id='bubble'>
+  <a class='bubble-close' id='bubble-close'>x</a>
+  <p style='text-decoration:blink'>Blood Type <strong>".$type."</strong> stock LOW!</p>".$this->notify_socialMedia($type)["button"]."
+</div>");
+
+			return $code;  
 		}
 
 
@@ -131,18 +143,12 @@
 		*   @param  type,RH
 		*	@return none
 		*/
-		function notify_socialMedia($type,$RH)
+		function notify_socialMedia($type)
 		{
 			// Create post of low stock type
 			// Post to Facebook
 
-			// Get recipients with low type and RH
-			$dbo = database::getInstance(); // pass back that database object already created perhaps
-			$sql = "select * from Recipient where recipient_bloodGroup = {$type} AND recipient_RH = {$RH} AND recipient_urgencyLevel = 1 "; // what we want to do (select records)
-			$dbo->doQuery($sql); // execute query statement
-			$row = $dbo->loadObjectList(); //get list of all returned values as assoc array
-
-			//Create post of recipient to Facebook
+			return array("button"=>"<div class='fb-share-button' data-href='http://localhost/BloodLine%20SourceCode/urgentRecipientCases.html#' data-layout='button' data-mobile-iframe='false'></div>");
 
 		}
 

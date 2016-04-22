@@ -1,0 +1,129 @@
+<?php 
+
+  /* === DATABASE CONNECTION === */
+    include('dbaccess.php');
+    /* === START SESSION === */
+    session_start();
+
+     
+     // Create database object
+      $dbo = database::getInstance();
+      // Blood Specimen query
+      $sql = "SELECT COUNT(idBloodSpecimen)*10 as OCount FROM BloodSpecimen GROUP BY bloodSpec_bloodType = 'O' ";
+      // Execute query 
+      $dbo->doQuery($sql);
+      // Load array
+      $O = $dbo->loadObjectList();
+
+       $sql2 = "SELECT COUNT(idBloodSpecimen)*10 as ACount FROM BloodSpecimen GROUP BY bloodSpec_bloodType = 'A' ";
+      // Execute query 
+      $dbo->doQuery($sql2);
+      // Load array
+      $A = $dbo->loadObjectList();
+
+       $sql3 = "SELECT COUNT(idBloodSpecimen)*10 as BCount FROM BloodSpecimen GROUP BY bloodSpec_bloodType = 'B' ";
+      // Execute query 
+      $dbo->doQuery($sql3);
+      // Load array
+      $B = $dbo->loadObjectList();
+
+       $sql4 = "SELECT COUNT(idBloodSpecimen)*10 as ABCount FROM BloodSpecimen GROUP BY bloodSpec_bloodType = 'AB' ";
+      // Execute query 
+      $dbo->doQuery($sql4);
+      // Load array
+      $AB = $dbo->loadObjectList();
+      
+
+
+?>
+<!DOCTYPE html>
+<html >
+  <head>
+    
+    <meta charset="UTF-8">
+    <title>Blood Specimens</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    
+    <link rel="stylesheet" href="css/normalizeSlider.css">
+
+    
+        <link rel="stylesheet" href="css/styleSlider.css">
+
+       
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.css'>
+
+        <link rel="stylesheet" href="css/styleLevels.css">
+    
+    
+  </head>
+
+  <body>
+
+
+    <div class='slider-wrap'>
+  <div class='slider' id='sliders'>
+    <ul>
+      <li>
+        <div class='item'>
+          <div class='avatar'></div>
+          <div class='data'>Avatar Name</div>
+          <a href='#'>
+            <div class='view-profile'>View Profile</div>
+          </a>
+        </div>
+      </li>
+      <li>
+        <div class='item'>
+          <div class='avatar'></div>
+          <div class='data'>Avatar Name</div>
+          <a href='#'>
+            <div class='view-profile'>View Profile</div>
+          </a>
+        </div>
+      </li>
+      <li>
+        <div class='item'>
+          <div class='avatar'></div>
+          <div class='data'>Avatar Name</div>
+          <a href='#'>
+            <div class='view-profile'>View Profile</div>
+          </a>
+        </div>
+      </li>
+      <li>
+        <div class='item'>
+          <div class='avatar'></div>
+          <div class='data'>Avatar Name</div>
+          <a href='#'>
+            <div class='view-profile'>View Profile</div>
+          </a>
+        </div>
+      </li>
+      <li>
+        <div class='item'>
+          <div class='avatar'></div>
+          <div class='data'>Avatar Name</div>
+          <a href='#'>
+            <div class='view-profile'>View Profile</div>
+          </a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <a class='slider-arrow sa-left' href='#'>
+    <i class='fa fa-angle-left'></i>
+  </a>
+  <a class='slider-arrow sa-right' href='#'>
+    <i class='fa fa-angle-right'></i>
+  </a>
+ 
+</div>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='http://lfox.me/CDN/js/lbSlider/jquery.lbslider.js'></script>
+<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>-->
+        <script src="js/indexSlider.js"></script>
+
+    
+  </body>
+</html>

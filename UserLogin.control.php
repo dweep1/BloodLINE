@@ -95,18 +95,18 @@
 			
 			/* Encrypt password entered */
 			// Get salt appended
-			$salt = substr($row["passWord"], -1);
+			//$salt = substr($row["passWord"], -1);
 			// Cooncatenate to password entered by user
-			$digest = $pass.$salt;
+			//$digest = $pass.$salt;
 			// Compute digest of this concatanated string
-			$encPassword = md5($digest);
+			//$encPassword = md5($digest);
 			// Compare to what is in database
-			if ($row["passWord"] === $encPassword)
+			if ($row["passWord"] === $pass)
 			{
 				/* Login succesful */
 				// Link to different ui based on user type
 				if ($row["userType"] === 'N')
-				{
+				{	
 					// Nurse UI
 					$ui = new NurseUI($user);
 				}
@@ -210,7 +210,6 @@
 
 				} //UPDATE FUNCTION
 
-			echo $sql;
 			return $sql;
 
 		}

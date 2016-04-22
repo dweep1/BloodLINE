@@ -2,6 +2,8 @@
 
 	include('Database.class.php'); // class to set up database connection
 	include('Table.class.php'); // class to set up database table functionality
+
+	
 	
 	include_once('manageRecord.interface.php'); // Interface for table functionality
 

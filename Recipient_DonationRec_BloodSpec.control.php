@@ -1,6 +1,20 @@
 <?php	
 
-	/* === CLASS FOR Recipient_DonationRec_BloodSpec TABLE === */
+	/* === CLASS FOR Recipient_DonationRec_BloodSpec TABLE === 
+	include('BloodSpecimen.class.php');*/
+
+	function __autoload($className)
+	{
+    	
+
+     	if(file_exists($className . ".class.php"))
+    	{
+        	require_once($className . ".class.php");
+        
+    	}	
+
+	} 
+
 
 	class Recipient_DonationRec_BloodSpec extends Table
 	{
@@ -93,10 +107,12 @@
     	public function add_Recipient($rec)
 		{
   			// Create recipient object
-  			$r = new Recipient($rec);
+  			$r = new Recipient();
+
+  			$r->addNew($rec);
 
   			// Set control id
-  			$this->RDB_idRecipient = $r->idRecipient_TRN;
+  			$this->RDB_idRecipient = $r;
 
 		}
 
@@ -106,15 +122,15 @@
 		*   @param  record
 		*	@return none
 		*/
-    	/*public function add_DonationRecord($rec)
+    	public function add_DonationRecord($rec)
 		{
   			// Create DonationRecord object
   			$dr = new DonationRecord($rec);
 
   			// Set control id
-  			$this->RDB_idDonationRec = $dr->idDonationRecord;
+  			$this->RDB_idDonationRec = $dr;
 
-		}*/
+		}
 
 		/**
 		*	Add BloodSpecimen Object to Controller
@@ -125,20 +141,22 @@
     	public function add_BloodSpecimen($rec)
 		{
   			// Create BloodSpecimen object
-  			$bs = new BloodSpecimen($rec);
+  			$bs = new BloodSpecimen();
+
+  			$bs->addNew($rec);
 
   			// Set control id
-  			$this->RDB_idBloodSpec = $bs->idBloodSpecimen;
+  			$this->RDB_idBloodSpec = $bs;
 
 		}
 
 		/**
 		*	Executes Select query on Table
 		*   
-		*   @param  recipientid
+		*   @param  blood spec id
 		*	@return matching record
 		*/
-		function select($RDB_idRecipient) // Implementation 
+		function select($RDB_idBloodSpec) // Implementation 
 		{
 		   // empty
 		}

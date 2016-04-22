@@ -24,6 +24,7 @@
          	session_start();
 			// Assign session variables
          	$_SESSION["username"] = $this->loggedIn_User;
+         	$_SESSION["userType"] = 'L';
 			// Redirect to respective page			
 			$pageLink = 'labTechMenu.php';
 			header('Location: '.$pageLink.'');
@@ -71,6 +72,6 @@
 			// Search / View functionality
 		}
 
-		
+	}
 
 ?>

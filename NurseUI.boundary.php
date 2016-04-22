@@ -1,5 +1,7 @@
 <?php	
-	/* === CLASS FOR NurseUI VIEW === */
+	/* === CLASS FOR NurseUI VIEW === 
+	include('Donor.control.php');*/
+
 
 	class NurseUI 
 	{
@@ -23,7 +25,9 @@
 			// Start Session
          	session_start();
 			// Assign session variables
-         	$_SESSION["userObj"] = $this;
+         	$_SESSION["username"] = $this->loggedIn_User;
+         	$_SESSION["userType"] = 'N';
+         	$_SESSION["userObj"] = serialize($this);
 			// Redirect to respective page			
 			$pageLink = 'nurseMenu.php';
 			header('Location: '.$pageLink.'');
@@ -67,9 +71,17 @@
 		*/
 		function manage_BloodDonors()
 		{
-			// Add/update Functionality
-
-			// Search/View functionality
+			echo "<div class='wrapper' style='height:90%'>
+			<div class='container-form'>
+				<a href='#' onclick='?> if (isset({$_SESSION["userObj"]})) unserialize({$_SESSION["userObj"]})->manage_BloodDonors(); <?php'<h1>Manage Blood Donors</h1>
+				<form name='form' action='<?= {$_SERVER['PHP_SELF']} ?>' method='get'>
+					<table id = 'search'>
+					<tr></tr><tr><td><button name='addNewRec' id='addNewRec'><a href='addDonorRec.php'>Add New Record</a></button><td></tr><tr></tr>
+					<tr></tr><tr><td><button name='updExtgRec' id='updExtgRec'><a href='updateDonorRec.php'>Update Records</a></button><td></tr><tr></tr>
+					<tr></tr><tr><td><button name='srchExtgRec' id='srchExtgRec'><a href='searchDonorRec.php'>Search Records</a></button><td></tr><tr></tr>
+					</table>
+				</form>
+			</div> ";
 		}
 
 		/**
@@ -80,9 +92,17 @@
 		*/
 		function manage_BloodRecipients()
 		{
-			// Add/update Functionality
-
-			// Search/View functionality
+			echo "<div class='wrapper' style='height:90%'>
+			<div class='container-form'>
+				<a href='#' onclick='?> if (isset({$_SESSION["userObj"]})) unserialize({$_SESSION["userObj"]})->manage_BloodRecipients(); <?php'<h1>Manage Blood Donors</h1>
+				<form name='form' action='<?= {$_SERVER['PHP_SELF']} ?>' method='get'>
+					<table id = 'search2'>
+					<tr></tr><tr><td><button name='addNewRec' id='addNewRec2'><a href='addRecipientRec.php'>Add New Record</a></button><td></tr><tr></tr>
+					<tr></tr><tr><td><button name='updExtgRec' id='updExtgRec2'><a href='updateRecipientRec.php'>Update Records</a></button><td></tr><tr></tr>
+					<tr></tr><tr><td><button name='srchExtgRec' id='srchExtgRec2'><a href='searchRecipientRec.php'>Search Records</a></button><td></tr><tr></tr>
+					</table>
+				</form>
+			</div> ";
 
 		}
 
@@ -92,14 +112,13 @@
 		*   @param  none
 		*	@return none
 		*/
-		function add_Donor()
+		function add_Donor($data)
 		{
 			// Create new Donor object
 			$donor = new Donor();
-			// Get values to be stored in database
-			$data = array();
 			// Add record to database
 			$donor->addNew($data);
 		}
+	}
 
 ?>
