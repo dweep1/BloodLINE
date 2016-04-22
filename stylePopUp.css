@@ -1,0 +1,58 @@
+/* remimder bubble styling */
+.bubble{
+  background-color: #000;
+  border: 6px solid #d30000;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  bottom: 0px;
+  color: #000;
+  display: none;
+  left: 50%;
+  margin-bottom: 25px;
+  margin-left: -125px;
+  padding: 0px;
+  position: fixed;
+  text-align: center;
+  width: 240px;
+  z-index: 100;
+}
+.bubble p {
+  font: normal 18px Arial, Sans-serif;
+  margin: 8px;
+}
+.bubble strong{
+  font-style: italic;
+  font-weight: bold;
+}
+.bubble:before,
+.bubble:after {
+  bottom: -15px;
+  border: solid 20px transparent;
+  border-bottom: 0;
+  border-top-color: #fff;
+  content: "\0020";
+  display: block;
+  height: 0;
+  left: 42%;
+  overflow: hidden;
+  position: absolute;
+  width: 0;
+  z-index: 101;  
+}
+.bubble:before {
+  bottom: -24px;
+  border-top-color: #000;
+  z-index: 99;
+}
+a.bubble-close{
+  background-color: #000;
+  border-radius: 80px;
+  color: #fff;
+  cursor: pointer;
+  font: bold 20px Arial, Sans-serif;
+  float:right;
+  margin-right: -20px;
+  margin-top: -20px;
+  padding: 2px 9px;  
+}​

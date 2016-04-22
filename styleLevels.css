@@ -1,0 +1,6 @@
+div.liquidGauge { text-align: center; display: inline-block; width: 30%; }
+svg.liquidGauge { width: 100%; }
+
+.table-nonfluid {
+   width: auto;
+}

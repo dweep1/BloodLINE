@@ -1,0 +1,142 @@
+
+
+  /*  @-webkit-keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 1; }
+    50.01% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+@-moz-keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 1; }
+    50.01% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+@-ms-keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 1; }
+    50.01% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+@-o-keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 1; }
+    50.01% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 1; }
+    50.01% { opacity: 0; }
+    100% { opacity: 0; }
+}*/
+    
+.body-right {
+	float: left;
+	width: 50%;
+}
+
+table {
+	display: table;
+	table-layout: fixed;
+	width: 100%;
+	border-spacing: 0;
+	padding: 0;
+	background-color: rgba(185, 185, 185, 0.24);
+	color: #fff;
+	font-family: 'Arimo';
+	font-weight: 400;
+	font-size: 13px;
+	/*#b9b9b9*/
+}
+
+.table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	margin-top: 10px;
+	margin-left: 10px;
+}
+.tr {
+	border-top: 1px solid #b9b9b9;
+	cursor: pointer;
+}
+
+.unread{
+	font-weight: bold;
+}
+input[type=checkbox] {
+	display: none;
+}
+#label{
+	display: block;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: transparent;
+	content: "";
+	transition: all .3s ease-in-out;
+	cursor: pointer;
+	border: 3px solid #1FCE6D;
+}
+#box1:checked ~ label[for=box1]{
+	background: #1FCE6D;
+}
+#box2:checked ~ label[for=box2]{
+	background: #1FCE6D;
+}
+#box3:checked ~ label[for=box3]{
+	background: #1FCE6D;
+}
+#box4:checked ~ label[for=box4]{
+	background: #1FCE6D;
+}
+#box5:checked ~ label[for=box5]{
+	background: #1FCE6D;
+}
+#box6:checked ~ label[for=box6]{
+	background: #1FCE6D;
+}
+#box7:checked ~ label[for=box7]{
+	background: #1FCE6D;
+}
+#box8:checked ~ label[for=box8]{
+	background: #1FCE6D;
+}
+#box9:checked ~ label[for=box9]{
+	background: #1FCE6D;
+}
+#box10:checked ~ label[for=box10]{
+	background: #1FCE6D;
+}
+
+.table-mail .check-mail {
+	padding-left: 20px;
+	width: 30px;
+}
+table tr td {
+	padding: 12px;
+}
+.mail-contact {
+	width: 23%;
+}
+.mail-date {
+	text-align: center;
+	width: 50px;
+}
+.body-last {
+	width: 38%;
+	float: right;
+	margin-top: 10px;
+	margin-right: 10px;
+}
+.mail-box-header {
+	background: #fff;
+	border: 1px solid #e7eaec;
+	border-bottom: 0;
+	padding: 30px 20px 20px 20px;
+}
+
